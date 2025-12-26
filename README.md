@@ -31,7 +31,7 @@ Os dados meteorológicos brutos foram extraídos do **Banco de Dados Meteorológ
 
 ```mermaid
 graph LR
-    A[INMET (CSVs Brutos)] -->|Script Python| B(Limpeza & Tratamento)
-    B -->|Encoding & Tipagem| C{Validacao}
-    C -->|Sucesso| D[Arquivo Parquet Unificado]
-    D -->|Import| E[Power BI / Analytics]
+    A["INMET (CSVs Brutos)"] -->|"Script Python"| B("Limpeza e Tratamento")
+    B -->|"Encoding e Tipagem"| C{"Validação"}
+    C -->|"Sucesso"| D["Arquivo Parquet Unificado"]
+    D -->|"Import"| E["Power BI / Analytics"]
