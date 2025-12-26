@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Histórico de Chuvas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4a4150f8-73e2-4573-9687-2b2d7385cca0"
+  }
+}

@@ -1,0 +1,233 @@
+table dados_climaticos_unificados
+	lineageTag: 1fb73d70-bc11-478a-a508-1a26d51dba41
+
+	column 'DATA (YYYY-MM-DD)'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 72866423-eda6-4e07-9128-be4ccc8cb3d8
+		summarizeBy: none
+		sourceColumn: DATA (YYYY-MM-DD)
+
+		variation Variation
+			isDefault
+			relationship: eb45c7d9-458a-487b-9000-a7590adbfd12
+			defaultHierarchy: LocalDateTable_26c04ff9-749e-4c11-b119-c85894e0395d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'HORA (UTC)'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 85afe86d-f192-430e-b9bd-f3bc8961951f
+		summarizeBy: none
+		sourceColumn: HORA (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'PRECIPITAÇÃO TOTAL, HORÁRIO (mm)'
+		dataType: double
+		lineageTag: 6ae8b00a-8029-4070-8d16-5db18008f4b2
+		summarizeBy: sum
+		sourceColumn: PRECIPITAÇÃO TOTAL, HORÁRIO (mm)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB)'
+		dataType: double
+		lineageTag: 211dc5c5-af72-4df0-8bc9-feacdcccd3f5
+		summarizeBy: sum
+		sourceColumn: PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'PRESSÃO ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB)'
+		dataType: double
+		lineageTag: 3b0aeb6f-2197-40fd-b124-e291321eeabe
+		summarizeBy: sum
+		sourceColumn: PRESSÃO ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'PRESSÃO ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB)'
+		dataType: double
+		lineageTag: f2881514-905d-476d-aaf3-123bf220278a
+		summarizeBy: sum
+		sourceColumn: PRESSÃO ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'RADIACAO GLOBAL (KJ/m²)'
+		dataType: double
+		lineageTag: a5ae1179-805e-4a29-8123-6de994004f5b
+		summarizeBy: sum
+		sourceColumn: RADIACAO GLOBAL (KJ/m²)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)'
+		dataType: double
+		lineageTag: 753840f0-fd9f-4574-a99d-df96fb6aa3b2
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA DO PONTO DE ORVALHO (°C)'
+		dataType: double
+		lineageTag: 4582f3e4-42d2-4dda-9942-9ce25bae3579
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA DO PONTO DE ORVALHO (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA MÁXIMA NA HORA ANT. (AUT) (°C)'
+		dataType: double
+		lineageTag: cef9be69-053e-4e5b-820e-638cdabff4a3
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA MÁXIMA NA HORA ANT. (AUT) (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA MÍNIMA NA HORA ANT. (AUT) (°C)'
+		dataType: double
+		lineageTag: 4689c1c9-b6c7-4567-b84d-2bbf1ab1455f
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA MÍNIMA NA HORA ANT. (AUT) (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (°C)'
+		dataType: double
+		lineageTag: b9f184a6-b258-4267-8453-21b55f9b2240
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (°C)'
+		dataType: double
+		lineageTag: 6fb1ec79-2956-4e20-a51c-a62769ba85e5
+		summarizeBy: sum
+		sourceColumn: TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (°C)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'UMIDADE REL. MAX. NA HORA ANT. (AUT) (%)'
+		dataType: double
+		lineageTag: 8ae153be-7560-4097-98a4-dfaa3f18def7
+		summarizeBy: sum
+		sourceColumn: UMIDADE REL. MAX. NA HORA ANT. (AUT) (%)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'UMIDADE REL. MIN. NA HORA ANT. (AUT) (%)'
+		dataType: double
+		lineageTag: 9dd3ac40-962f-47ab-bd86-e606e38d39e5
+		summarizeBy: sum
+		sourceColumn: UMIDADE REL. MIN. NA HORA ANT. (AUT) (%)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'UMIDADE RELATIVA DO AR, HORARIA (%)'
+		dataType: double
+		lineageTag: 951dff1f-7ed3-4c8a-818a-4a4b116181dd
+		summarizeBy: sum
+		sourceColumn: UMIDADE RELATIVA DO AR, HORARIA (%)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'VENTO, DIREÇÃO HORARIA (gr) (° (gr))'
+		dataType: double
+		lineageTag: 57829837-9045-4816-806e-63c4bbe87a6c
+		summarizeBy: sum
+		sourceColumn: VENTO, DIREÇÃO HORARIA (gr) (° (gr))
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'VENTO, RAJADA MAXIMA (m/s)'
+		dataType: double
+		lineageTag: 42a71b51-06b4-4cce-9638-6cf9f47238e6
+		summarizeBy: sum
+		sourceColumn: VENTO, RAJADA MAXIMA (m/s)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'VENTO, VELOCIDADE HORARIA (m/s)'
+		dataType: double
+		lineageTag: b106e580-ebad-4d19-b187-26f91fff3827
+		summarizeBy: sum
+		sourceColumn: VENTO, VELOCIDADE HORARIA (m/s)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column arquivo_origem
+		dataType: string
+		lineageTag: f0d70b10-4b4c-40cc-8708-d9822844f8b9
+		summarizeBy: none
+		sourceColumn: arquivo_origem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'RADIACAO GLOBAL (Kj/m²).1'
+		dataType: double
+		lineageTag: ddb4a213-b7c1-465f-a32e-2e27a21abbeb
+		summarizeBy: sum
+		sourceColumn: RADIACAO GLOBAL (Kj/m²).1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dados_climaticos_unificados = m
+		mode: import
+		source =
+				let
+				    Fonte = Parquet.Document(File.Contents("D:\GitHub\historico-chuvas\data\parquet\dados_climaticos_unificados.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null]),
+				    #"Colunas Renomeadas" = Table.RenameColumns(Fonte,{{"RADIACAO GLOBAL (Kj/m²)", "RADIACAO GLOBAL (Kj/m²).1"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"DATA (YYYY-MM-DD)", type date}, {"HORA (UTC)", type time}, {"Data", type date}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"DATA (YYYY-MM-DD)", "HORA (UTC)", "PRECIPITAÇÃO TOTAL, HORÁRIO (mm)", "PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB)", "PRESSÃO ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB)", "PRESSÃO ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB)", "RADIACAO GLOBAL (KJ/m²)", "TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)", "TEMPERATURA DO PONTO DE ORVALHO (°C)", "TEMPERATURA MÁXIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA MÍNIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (°C)", "UMIDADE REL. MAX. NA HORA ANT. (AUT) (%)", "UMIDADE REL. MIN. NA HORA ANT. (AUT) (%)", "UMIDADE RELATIVA DO AR, HORARIA (%)", "VENTO, DIREÇÃO HORARIA (gr) (° (gr))", "VENTO, RAJADA MAXIMA (m/s)", "VENTO, VELOCIDADE HORARIA (m/s)", "arquivo_origem", "RADIACAO GLOBAL (Kj/m²).1"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
