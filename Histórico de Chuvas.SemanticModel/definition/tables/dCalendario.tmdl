@@ -1,0 +1,171 @@
+table dCalendario
+	lineageTag: 82a21615-96eb-4bcd-ad45-c84250bd85c6
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 04e25980-eb7d-4ad2-ba3e-2bc38b7dd16b
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 27271ae9-189a-4378-8a63-bc9de890a5ed
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: a05c981e-3485-4e5c-b048-37d7fe530d9e
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesNome
+		dataType: string
+		lineageTag: 94c4510a-9ebb-45b6-abd6-bada2792d88a
+		summarizeBy: none
+		sourceColumn: MesNome
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesAbrev
+		dataType: string
+		lineageTag: 3a395483-cf63-47ff-b22d-6c9cc3638749
+		summarizeBy: none
+		sourceColumn: MesAbrev
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 872d6510-0a94-41f2-853e-621db0bc655c
+		summarizeBy: sum
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f4ae317-47e4-4987-9396-97704d6f6aea
+		summarizeBy: sum
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaAno
+		dataType: int64
+		formatString: 0
+		lineageTag: d0972a1b-cfeb-4218-afe5-8c4922fd8405
+		summarizeBy: sum
+		sourceColumn: SemanaAno
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesAnoInt
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a657b1c-9338-4487-82fb-ba7a49d23adc
+		summarizeBy: sum
+		sourceColumn: MesAnoInt
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesAno
+		dataType: string
+		lineageTag: ea736b63-802c-45b0-9bab-cc923fe4b448
+		summarizeBy: none
+		sourceColumn: MesAno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estacao
+		dataType: string
+		lineageTag: bf850020-23df-48c1-9539-63b8f4e07f12
+		summarizeBy: none
+		sourceColumn: Estacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column EhPeriodoCritico
+		dataType: string
+		lineageTag: e54326ca-321f-46f3-9461-496c1000545c
+		summarizeBy: none
+		sourceColumn: EhPeriodoCritico
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decada
+		dataType: string
+		lineageTag: fc8d5eca-0f2d-4fa0-909b-d3551148a90a
+		summarizeBy: none
+		sourceColumn: Decada
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario = m
+		mode: import
+		source = ```
+				let
+				    // 1. Definição de Parâmetros
+				    DataInicial = #date(2007, 1, 1),
+				    DataFinal = Date.EndOfYear(Date.From(DateTime.LocalNow())),
+				    QtdeDias = Duration.Days(DataFinal - DataInicial) + 1,
+				
+				    // 2. Criação da Lista Base
+				    FonteLista = List.Dates(DataInicial, QtdeDias, #duration(1, 0, 0, 0)),
+				    ConverterParaTabela = Table.FromList(FonteLista, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    AlterarTipoParaData = Table.TransformColumnTypes(ConverterParaTabela,{{"Column1", type date}}),
+				    RenomearColunaData = Table.RenameColumns(AlterarTipoParaData,{{"Column1", "Data"}}),
+				
+				    // 3. Adição de Colunas de Tempo
+				    AdicionarAno = Table.AddColumn(RenomearColunaData, "Ano", each Date.Year([Data]), Int64.Type),
+				    AdicionarMes = Table.AddColumn(AdicionarAno, "Mes", each Date.Month([Data]), Int64.Type),
+				    AdicionarNomeMes = Table.AddColumn(AdicionarMes, "MesNome", each Date.MonthName([Data], "pt-BR"), type text),
+				    AdicionarMesAbrev = Table.AddColumn(AdicionarNomeMes, "MesAbrev", each Text.Start([MesNome], 3), type text),
+				    AdicionarDia = Table.AddColumn(AdicionarMesAbrev, "Dia", each Date.Day([Data]), Int64.Type),
+				    AdicionarTrimestre = Table.AddColumn(AdicionarDia, "Trimestre", each Date.QuarterOfYear([Data]), Int64.Type),
+				    AdicionarSemanaAno = Table.AddColumn(AdicionarTrimestre, "SemanaAno", each Date.WeekOfYear([Data]), Int64.Type),
+				
+				    // 4. Colunas de Ordenação (Sort)
+				    AdicionarMesAnoSort = Table.AddColumn(AdicionarSemanaAno, "MesAnoInt", each [Ano] * 100 + [Mes], Int64.Type),
+				    AdicionarMesAnoTexto = Table.AddColumn(AdicionarMesAnoSort, "MesAno", each [MesAbrev] & "/" & Text.End(Text.From([Ano]), 2), type text),
+				
+				    // 5. Lógica de Negócio (Petrópolis)
+				    // Define estações (Março-Maio=Outono, etc.)
+				    AdicionarEstacao = Table.AddColumn(AdicionarMesAnoTexto, "Estacao", each 
+				        if [Mes] >= 3 and [Mes] <= 5 then "Outono" else
+				        if [Mes] >= 6 and [Mes] <= 8 then "Inverno" else
+				        if [Mes] >= 9 and [Mes] <= 11 then "Primavera" else "Verão"
+				    , type text),
+				
+				    // Flag para filtrar meses de chuva intensa na serra (Dez, Jan, Fev, Mar)
+				    AdicionarFlagPeriodoCritico = Table.AddColumn(AdicionarEstacao, "EhPeriodoCritico", each 
+				        if [Mes] = 12 or [Mes] = 1 or [Mes] = 2 or [Mes] = 3 then "Sim" else "Não"
+				    , type text),
+				
+				    // Agrupamento por década para análises históricas
+				    AdicionarDecada = Table.AddColumn(AdicionarFlagPeriodoCritico, "Decada", each 
+				        Text.From(Number.RoundDown([Ano]/10)*10) & "'s", type text
+				    )
+				in
+				    AdicionarDecada
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

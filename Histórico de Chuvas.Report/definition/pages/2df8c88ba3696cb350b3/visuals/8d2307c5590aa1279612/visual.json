@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "8d2307c5590aa1279612",
+  "position": {
+    "x": 151.63123955099115,
+    "y": 0,
+    "z": 0,
+    "height": 568.61714831621691,
+    "width": 923.23859565321231,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dCalendario"
+                    }
+                  },
+                  "Property": "Ano"
+                }
+              },
+              "queryRef": "Sum(dCalendario.Ano)",
+              "nativeQueryRef": "Ano"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dCalendario"
+                    }
+                  },
+                  "Property": "Trimestre"
+                }
+              },
+              "queryRef": "Sum(dCalendario.Trimestre)",
+              "nativeQueryRef": "Trimestre"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fDadosClimaticos"
+                        }
+                      },
+                      "Property": "PRECIPITAÇÃO TOTAL, HORÁRIO (mm)"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(fDadosClimaticos.PRECIPITAÇÃO TOTAL, HORÁRIO (mm))",
+              "nativeQueryRef": "Precipitação",
+              "displayName": "Precipitação"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "744acb013ace81535dd1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCalendario"
+              }
+            },
+            "Property": "Ano"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "965a3f89c176dbf04899",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCalendario"
+              }
+            },
+            "Property": "Trimestre"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d1365beafa32f87f0e3f",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fDadosClimaticos"
+                  }
+                },
+                "Property": "PRECIPITAÇÃO TOTAL, HORÁRIO (mm)"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

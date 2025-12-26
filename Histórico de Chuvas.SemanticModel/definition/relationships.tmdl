@@ -1,5 +1,8 @@
-relationship eb45c7d9-458a-487b-9000-a7590adbfd12
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dados_climaticos_unificados.'DATA (YYYY-MM-DD)'
-	toColumn: LocalDateTable_26c04ff9-749e-4c11-b119-c85894e0395d.Date
+relationship 3484bb5a-9cd3-0add-a382-efb4ccd5314a
+	fromColumn: fDadosClimaticos.'DATA (YYYY-MM-DD)'
+	toColumn: dCalendario.Data
+
+relationship c5494723-d0a0-1827-7020-98bc42c17908
+	fromColumn: fDesastres.data
+	toColumn: dCalendario.Data
 

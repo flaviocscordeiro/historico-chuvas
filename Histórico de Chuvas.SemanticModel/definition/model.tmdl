@@ -10,11 +10,11 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["dados_climaticos_unificados"]
+annotation PBI_QueryOrder = ["fDadosClimaticos","fDesastres","dCalendario"]
 
-ref table dados_climaticos_unificados
-ref table DateTableTemplate_560c2aa0-753f-412f-b713-80d291e7fd1f
-ref table LocalDateTable_26c04ff9-749e-4c11-b119-c85894e0395d
+ref table fDadosClimaticos
+ref table fDesastres
+ref table dCalendario
 
 ref cultureInfo pt-BR
 

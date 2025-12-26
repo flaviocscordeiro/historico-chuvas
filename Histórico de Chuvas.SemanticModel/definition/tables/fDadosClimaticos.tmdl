@@ -1,4 +1,4 @@
-table dados_climaticos_unificados
+table fDadosClimaticos
 	lineageTag: 1fb73d70-bc11-478a-a508-1a26d51dba41
 
 	column 'DATA (YYYY-MM-DD)'
@@ -7,11 +7,6 @@ table dados_climaticos_unificados
 		lineageTag: 72866423-eda6-4e07-9128-be4ccc8cb3d8
 		summarizeBy: none
 		sourceColumn: DATA (YYYY-MM-DD)
-
-		variation Variation
-			isDefault
-			relationship: eb45c7d9-458a-487b-9000-a7590adbfd12
-			defaultHierarchy: LocalDateTable_26c04ff9-749e-4c11-b119-c85894e0395d.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -216,16 +211,17 @@ table dados_climaticos_unificados
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition dados_climaticos_unificados = m
+	partition fDadosClimaticos = m
 		mode: import
 		source =
 				let
 				    Fonte = Parquet.Document(File.Contents("D:\GitHub\historico-chuvas\data\parquet\dados_climaticos_unificados.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null]),
 				    #"Colunas Renomeadas" = Table.RenameColumns(Fonte,{{"RADIACAO GLOBAL (Kj/m²)", "RADIACAO GLOBAL (Kj/m²).1"}}),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"DATA (YYYY-MM-DD)", type date}, {"HORA (UTC)", type time}, {"Data", type date}}),
-				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"DATA (YYYY-MM-DD)", "HORA (UTC)", "PRECIPITAÇÃO TOTAL, HORÁRIO (mm)", "PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB)", "PRESSÃO ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB)", "PRESSÃO ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB)", "RADIACAO GLOBAL (KJ/m²)", "TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)", "TEMPERATURA DO PONTO DE ORVALHO (°C)", "TEMPERATURA MÁXIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA MÍNIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (°C)", "UMIDADE REL. MAX. NA HORA ANT. (AUT) (%)", "UMIDADE REL. MIN. NA HORA ANT. (AUT) (%)", "UMIDADE RELATIVA DO AR, HORARIA (%)", "VENTO, DIREÇÃO HORARIA (gr) (° (gr))", "VENTO, RAJADA MAXIMA (m/s)", "VENTO, VELOCIDADE HORARIA (m/s)", "arquivo_origem", "RADIACAO GLOBAL (Kj/m²).1"})
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"DATA (YYYY-MM-DD)", "HORA (UTC)", "PRECIPITAÇÃO TOTAL, HORÁRIO (mm)", "PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB)", "PRESSÃO ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB)", "PRESSÃO ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB)", "RADIACAO GLOBAL (KJ/m²)", "TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)", "TEMPERATURA DO PONTO DE ORVALHO (°C)", "TEMPERATURA MÁXIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA MÍNIMA NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (°C)", "TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (°C)", "UMIDADE REL. MAX. NA HORA ANT. (AUT) (%)", "UMIDADE REL. MIN. NA HORA ANT. (AUT) (%)", "UMIDADE RELATIVA DO AR, HORARIA (%)", "VENTO, DIREÇÃO HORARIA (gr) (° (gr))", "VENTO, RAJADA MAXIMA (m/s)", "VENTO, VELOCIDADE HORARIA (m/s)", "arquivo_origem", "RADIACAO GLOBAL (Kj/m²).1"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Outras Colunas Removidas", each ([#"PRECIPITAÇÃO TOTAL, HORÁRIO (mm)"] <> null and [#"PRECIPITAÇÃO TOTAL, HORÁRIO (mm)"] <> -9999))
 				in
-				    #"Outras Colunas Removidas"
+				    #"Linhas Filtradas"
 
 	annotation PBI_NavigationStepName = Navegação
 

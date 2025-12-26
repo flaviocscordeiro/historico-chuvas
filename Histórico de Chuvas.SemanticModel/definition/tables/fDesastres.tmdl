@@ -1,0 +1,50 @@
+table fDesastres
+	lineageTag: 2a7ad68d-08cc-40fa-bcdc-591f31a03e15
+
+	column data
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 701dae38-f0a1-4e6b-b085-4f5451bdc137
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+	column mortos
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f0c0fd0-2c9c-40f7-a50e-9aac8cfc3142
+		summarizeBy: sum
+		sourceColumn: mortos
+
+		annotation SummarizationSetBy = Automatic
+
+	column desabrigados
+		dataType: int64
+		formatString: 0
+		lineageTag: 91fc45c5-229f-46ad-9ce1-9cbd33052ba6
+		summarizeBy: sum
+		sourceColumn: desabrigados
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_desastre
+		dataType: string
+		lineageTag: cb857017-a60c-4204-8a6a-4ea76563cc57
+		summarizeBy: none
+		sourceColumn: cod_desastre
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fDesastres = m
+		mode: import
+		source =
+				let
+				    Fonte = Parquet.Document(File.Contents("D:\GitHub\historico-chuvas\data\parquet\s2id_petropolis_consolidado.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
