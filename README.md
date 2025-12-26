@@ -1,37 +1,32 @@
 # ⛈️ Análise Histórica de Chuvas e Impacto em Petrópolis-RJ
 
-![Status do Projeto](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-gold)
 
-Este projeto é uma iniciativa de Engenharia e Análise de Dados focada em cruzar dados meteorológicos históricos com eventos de tragédias climáticas na cidade de Petrópolis, Rio de Janeiro.
+Projeto de Engenharia de Dados para cruzar histórico climático (INMET) com desastres naturais (S2iD) na região serrana do Rio de Janeiro.
 
-O objetivo é criar uma base de dados robusta e performática para identificar padrões climáticos críticos que precederam desastres naturais na região serrana.
+## 📂 Estrutura Simplificada
 
-## 🎯 Objetivos
-- **Engenharia de Dados:** Construir um pipeline ETL (Extração, Transformação e Carga) robusto para processar grandes volumes de dados brutos.
-- **Performance:** Converter dados de arquivos de texto (CSV) legados para formatos colunaies modernos (Parquet).
-- **Analytics:** Desenvolver um dashboard interativo no Power BI para visualização da correlação entre precipitação acumulada e ocorrências de desastres.
+Os scripts de ETL foram desenhados para serem **executados diretamente na pasta onde estão os dados**.
 
-## 🗂️ Fonte dos Dados
-Os dados meteorológicos brutos foram extraídos do **Banco de Dados Meteorológicos para Ensino e Pesquisa (BDMEP)** do INMET (Instituto Nacional de Meteorologia).
-- **Fonte:** [BDMEP - INMET](https://bdmep.inmet.gov.br/)
-- **Estação:** PICO DO COUTO (A610)
-- **Período:** 2007 a 2025
-- **Granularidade:** Horária
+### 1. Dados do INMET (Clima)
+* **Fonte:** [BDMEP INMET](https://portal.inmet.gov.br/)
+* **Script:** `src/etl_inmet.py`
+* **Como usar:**
+    1. Coloque o script na mesma pasta dos arquivos `.CSV` do INMET.
+    2. Execute: `python etl_inmet.py`
+    3. O arquivo `dados_climaticos_unificados.parquet` será criado lá.
 
-## 🛠️ Tecnologias Utilizadas
-- **Linguagem:** Python
-- **Bibliotecas:** Pandas, PyArrow, Glob, OS
-- **Armazenamento:** Parquet (Compressão Snappy)
-- **Visualização:** Microsoft Power BI
-- **Versionamento:** Git & GitHub
+### 2. Dados do S2iD (Desastres/Mortes)
+* **Fonte:** [S2iD Dados Abertos](https://dadosabertos.mdr.gov.br/dataset/s2id_sedec)
+* **Script:** `src/etl_s2id.py`
+* **Como usar:**
+    1. Coloque o script na mesma pasta dos arquivos `.csv` do governo.
+    2. Execute: `python etl_s2id.py`
+    3. O arquivo `s2id_petropolis_consolidado.parquet` será criado lá.
 
-## ⚙️ Arquitetura da Solução
+## 📊 Dashboard (Em breve)
+O objetivo final é conectar esses dois arquivos Parquet no **Power BI** para visualização da correlação entre volume de chuva e fatalidades.
 
-```mermaid
-graph LR
-    A["INMET (CSVs Brutos)"] -->|"Script Python"| B("Limpeza e Tratamento")
-    B -->|"Encoding e Tipagem"| C{"Validação"}
-    C -->|"Sucesso"| D["Arquivo Parquet Unificado"]
-    D -->|"Import"| E["Power BI / Analytics"]
+## 📝 Licença
+MIT License - Flávio Cordeiro 2025.
